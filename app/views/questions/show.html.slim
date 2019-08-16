@@ -1,2 +1,10 @@
 h1= @question.title
 p= @question.body
+
+
+- @question.answers.each do |answer|
+  div
+    -if answer.persisted?
+      p= answer.body
+
+/ #TODO
