@@ -80,6 +80,11 @@ RSpec.describe AnswersController, type: :controller do
       it 'tries to delete answer' do
         expect { delete :destroy, params: {id: answer}, format: :js }.to_not change(Answer, :count)
       end
+
+      it 'get empty response' do
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response.body).to be_empty
+      end
     end
 
     context 'Unauthorized user' do

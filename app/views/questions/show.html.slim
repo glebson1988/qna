@@ -7,8 +7,9 @@ p= @question.body
           method: :delete,
           data: {confirm: 'Are you sure?'}
 
+
+h2 Answers
 .answers
-  h2 Answers
   = render @question.answers
 
 - if current_user.present?
