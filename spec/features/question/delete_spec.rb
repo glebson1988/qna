@@ -12,18 +12,18 @@ feature 'User can delete his question', %q{
   scenario 'Author delete his question' do
     sign_in(author)
     visit question_path(question)
-    click_on 'Delete question'
+    click_on 'Delete'
     expect(page).to_not have_content question.title
   end
 
   scenario 'Not author delete question' do
     sign_in(user)
     visit question_path(question)
-    expect(page).to_not have_link 'Delete question'
+    expect(page).to_not have_selector(:link_or_button, 'Delete')
   end
 
   scenario 'Not authenticated user delete question' do
     visit question_path(question)
-    expect(page).to_not have_link 'Delete question'
+    expect(page).to_not have_selector(:link_or_button, 'Delete')
   end
 end
