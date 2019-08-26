@@ -124,4 +124,43 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #set_best' do
+    let(:author) { create(:user) }
+    let(:new_question) { create(:question, user: author)}
+    let(:answer) { create(:answer, question: new_question, user: author) }
+
+    context 'User is author of question' do
+      before { login(author) }
+
+      it 'set best answer' do
+        patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
+        answer.reload
+        expect(answer.best).to eq true
+      end
+
+      it 'renders set_best view' do
+        patch :set_best, params: { id: answer, answer: { body: 'new body'}, format: :js }
+        expect(response).to render_template :set_best
+      end
+    end
+
+    context 'User is not author of question' do
+      before { login(user) }
+
+      it 'tries to set best answer' do
+        patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
+        answer.reload
+        expect(answer.best).to eq false
+      end
+    end
+
+    context 'Unauthorized user' do
+      it 'tries to set best answer' do
+        patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
+        answer.reload
+        expect(answer.best).to eq false
+      end
+    end
+  end
 end
