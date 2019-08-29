@@ -1,0 +1,5 @@
+$('.answer-errors').html("<%= j render 'shared/errors', resource: @answer %>");
+
+<% unless @answer.errors.present? %>
+  $('.answers').html("<%= j render @answer.question.answers %>");
+<% end %>
