@@ -25,7 +25,7 @@ RSpec.describe Answer, type: :model do
 
     it 'best answer must be first in the list' do
       answers.last.set_best!
-      expect(Answer.all.first).to be_best
+      expect(question.answers.first).to be_best
     end
   end
 end
