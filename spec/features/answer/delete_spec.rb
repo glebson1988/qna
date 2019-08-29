@@ -13,6 +13,7 @@ feature 'User can delete his answer', %q{
   scenario 'Authenticated user destroys own answer', js: true do
     sign_in(answer.user)
     visit question_path answer.question
+    expect(page).to have_content answer.body
     click_on 'Delete'
 
     expect(page).to_not have_content answer.body

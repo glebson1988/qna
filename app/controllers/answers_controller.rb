@@ -3,8 +3,6 @@ class AnswersController < ApplicationController
   before_action :find_question, only: :create
   before_action :find_answer, only: %i[update destroy set_best]
 
-  def new; end
-
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
@@ -16,12 +14,14 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user&.author_of?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+    end
   end
 
   def set_best
-    @answer.set_best if current_user&.author_of?(@answer.question)
+    @answer.set_best! if current_user&.author_of?(@answer.question)
   end
 
   private

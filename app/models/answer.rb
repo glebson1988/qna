@@ -6,9 +6,9 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  def set_best
+  def set_best!
     transaction do
-      question.answers.update_all(best: false)
+      question.answers.lock!.each { |answer| answer.lock!.update(best: false) }
       update!(best: true)
     end
   end

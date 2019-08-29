@@ -25,7 +25,6 @@ feature 'User can edit his question', %q{
         click_on 'Save'
 
         expect(page).to have_content 'edited question title'
-        expect(page).to have_selector 'textarea', text: 'edited question body', visible: false
         expect(page).to_not have_selector 'textarea'
       end
     end
@@ -37,7 +36,7 @@ feature 'User can edit his question', %q{
         fill_in 'Body', with: ''
         click_on 'Save'
 
-        expect(page).to_not have_content "Title can't be blank"
+        expect(page).to have_content "Title can't be blank"
         expect(page).to have_content "Body can't be blank"
         expect(page).to have_selector 'textarea'
       end

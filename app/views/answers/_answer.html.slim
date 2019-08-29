@@ -1,6 +1,6 @@
 - if answer.persisted?
   div id = "answer_#{answer.id}"
-    -if answer.best
+    -if answer.best?
       | Best answer:
     p= answer.body
     - if show_best?(answer)

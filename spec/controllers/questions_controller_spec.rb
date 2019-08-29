@@ -7,7 +7,6 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
-
     before { get :index }
 
     it 'populates an array of all questions' do
@@ -50,9 +49,9 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before { login(user) }
+    context 'Authorized user creates question with valid attributes' do
+      before { login(user) }
 
-    context 'with valid attributes' do
       it 'saves the new question in database' do
         expect { post :create, params: {question: attributes_for(:question)} }.to change(Question, :count).by(1)
       end
@@ -68,7 +67,9 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
+    context 'Authorized user creates question with invalid attributes' do
+      before { login(user) }
+
       it 'does not save the question' do
         expect { post :create, params: {question: attributes_for(:question, :invalid)} }.to_not change(Question, :count)
       end
@@ -76,6 +77,12 @@ RSpec.describe QuestionsController, type: :controller do
       it 're-renders new view' do
         post :create, params: {question: attributes_for(:question, :invalid)}
         expect(response).to render_template :new
+      end
+    end
+
+    context 'Unauthorized user' do
+      it 'tries to save a new question to database' do
+        expect { post :create, params: {question: attributes_for(:question)} }.to_not change(Question, :count)
       end
     end
   end

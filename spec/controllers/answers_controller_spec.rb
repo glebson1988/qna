@@ -5,30 +5,10 @@ RSpec.describe AnswersController, type: :controller do
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question: question, user: user) }
 
-  describe 'GET #new' do
-    before { login(user) }
-
-    before { get :new, params: {question_id: question} }
-
-    it 'renders new view' do
-      expect(response).to render_template :new
-    end
-  end
-
-  describe 'GET #show' do
-    before { login(user) }
-
-    before { get :show, params: {id: answer} }
-
-    it 'renders show view' do
-      expect(response).to render_template :show
-    end
-  end
-
   describe 'POST #create' do
-    before { login(user) }
+    context 'Authorized user creates answer with valid attributes' do
+      before { login(user) }
 
-    context 'with valid attributes' do
       it 'saves a new answer to database' do
         expect { post :create, params: {answer: attributes_for(:answer), question_id: question}, format: :js }.to change(question.answers, :count).by(1)
       end
@@ -44,7 +24,9 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
+    context 'Authorized user creates answer with invalid attributes' do
+      before { login(user) }
+
       it 'does not save the answer' do
         expect { post :create, params: {question_id: question, answer: attributes_for(:answer, :invalid), format: :js} }.to_not change(Answer, :count)
       end
@@ -52,6 +34,12 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders create template' do
         post :create, params: {question_id: question, answer: attributes_for(:answer, :invalid), format: :js}
         expect(response).to render_template :create
+      end
+    end
+
+    context 'Unauthorized user' do
+      it 'tries to save a new answer to database' do
+        expect { post :create, params: {question_id: question, answer: attributes_for(:answer), format: :js} }.to_not change(Answer, :count)
       end
     end
   end
@@ -95,10 +83,12 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    before { login(user) }
+
     let!(:answer) { create(:answer, question: question, user: user) }
 
-    context 'with valid attributes' do
+    context 'Authorized user edits his answer with valid attributes' do
+      before { login(user) }
+
       it 'changes answer attributes' do
         patch :update, params: {id: answer, answer: {body: 'new body'}}, format: :js
         answer.reload
@@ -111,7 +101,9 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
+    context 'Authorized user edits his answer with invalid attributes' do
+      before { login(user) }
+
       it 'does not change answer attributes' do
         expect do
           patch :update, params: {id: answer, answer: attributes_for(:answer, :invalid)}, format: :js
@@ -121,6 +113,30 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders update view' do
         patch :update, params: {id: answer, answer: attributes_for(:answer, :invalid)}, format: :js
         expect(response).to render_template :update
+      end
+    end
+
+    context 'User is not author' do
+      let(:other_user) { create(:user) }
+      before { login(:other_user) }
+
+      it "tries to edit others's user answer" do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        answer.reload
+        expect(answer.body).to_not eq 'new body'
+      end
+    end
+
+    context 'Unauthorized user' do
+      it 'tries to edit answer' do
+        patch :update, params: {id: answer, answer: {body: 'new body'}}, format: :js
+        answer.reload
+        expect(answer.body).to_not eq 'new body'
+      end
+
+      it 'needs to login in order to proceed' do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        expect(response.body).to have_content 'You need to sign in or sign up before continuing.'
       end
     end
   end
@@ -136,7 +152,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'set best answer' do
         patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
         answer.reload
-        expect(answer.best).to eq true
+        expect(answer.best).to be
       end
 
       it 'renders set_best view' do
@@ -151,7 +167,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'tries to set best answer' do
         patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
         answer.reload
-        expect(answer.best).to eq false
+        expect(answer.best).not_to be
       end
     end
 
@@ -159,7 +175,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'tries to set best answer' do
         patch :set_best, params: { id: answer, answer: { best: true} }, format: :js
         answer.reload
-        expect(answer.best).to eq false
+        expect(answer.best).not_to be
       end
     end
   end
