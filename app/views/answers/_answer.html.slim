@@ -5,8 +5,12 @@
     p= answer.body
 
     - if answer.files.attached?
-      - answer.files.each do |file|
-        p= link_to file.filename.to_s, url_for(file)
+      .attachments
+        - answer.files.each do |file|
+          div id="attachment_#{file.id}"
+            = link_to file.filename.to_s, url_for(file)
+            - if current_user&.author_of?(answer)
+              p= link_to 'Delete file', attachment_path(answer), method: :delete, remote: true
 
     - if show_best?(answer)
       p= link_to 'Set best', set_best_answer_path(answer),
@@ -23,6 +27,10 @@
       = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body
+        br
+        = f.label :files
+        = f.file_field :files, multiple: true
+        br
         = f.submit 'Save'
 
     hr
