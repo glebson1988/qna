@@ -42,6 +42,9 @@ feature 'User can edit his answer', %q{
     end
 
     scenario 'add files to edited answer' do
+      expect(page).to_not have_link 'rails_helper.rb'
+      expect(page).to_not have_link 'spec_helper.rb'
+
       within '.answers' do
         click_on 'Edit'
 

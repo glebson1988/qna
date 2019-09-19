@@ -2,13 +2,7 @@
   div id = "question_#{question.id}"
     = link_to question.title, question_path(question)
 
-    - if question.files.attached?
-      .attachments
-        - question.files.each do |file|
-          div id="attachment_#{file.id}"
-            = link_to file.filename.to_s, url_for(file)
-            - if current_user&.author_of?(question)
-              p= link_to 'Delete file', attachment_path(question), method: :delete, remote: true
+    = render 'shared/attachments', resource: question
 
     - if current_user&.author_of?(question)
       p= link_to 'Edit', '#', class: 'edit-question-link', data: {question_id: question.id}

@@ -27,11 +27,21 @@ RSpec.describe AttachmentsController, type: :controller do
       it 'tries do delete attachment' do
         expect { delete :destroy, params: { id: resource_with_attachment }, format: :js}.to_not change(resource_with_attachment.files, :count)
       end
+
+      it 'renders destroy view' do
+        delete :destroy, params: { id: resource_with_attachment }, format: :js
+        expect(response).to render_template :destroy
+      end
     end
 
     context 'Unauthorized user' do
       it 'tries to delete attachment' do
         expect { delete :destroy, params: { id: resource_with_attachment }, format: :js}.to_not change(resource_with_attachment.files, :count)
+      end
+
+      it 'redirects to new session view' do
+        delete :destroy, params: { id: resource_with_attachment }
+        expect(response).to redirect_to new_user_session_path
       end
     end
   end

@@ -43,6 +43,9 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'add files to edited question' do
+      expect(page).to_not have_link 'rails_helper.rb'
+      expect(page).to_not have_link 'spec_helper.rb'
+
       within '.questions' do
         click_on 'Edit'
 
