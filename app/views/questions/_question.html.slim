@@ -1,6 +1,9 @@
 - if question.persisted?
   div id = "question_#{question.id}"
     = link_to question.title, question_path(question)
+
+    = render 'shared/attachments', resource: question
+
     - if current_user&.author_of?(question)
       p= link_to 'Edit', '#', class: 'edit-question-link', data: {question_id: question.id}
       p= button_to 'Delete',
@@ -15,5 +18,9 @@
         = f.label :body, 'Body'
         = f.text_area :body
         br
+        = f.label :files
+        = f.file_field :files, multiple: true, direct_upload: true
+        br
         = f.submit 'Save'
       hr
+br

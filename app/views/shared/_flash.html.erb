@@ -1,0 +1,7 @@
+<div class="row justify-content-center">
+  <% flash.each do |key, message| %>
+    <div class="col-6 alert <%= flash_message(key) %>">
+      <%= message.html_safe %>
+    </div>
+  <% end %>
+</div>

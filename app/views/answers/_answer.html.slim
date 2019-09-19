@@ -3,6 +3,9 @@
     -if answer.best?
       | Best answer:
     p= answer.body
+
+    = render 'shared/attachments', resource: answer
+
     - if show_best?(answer)
       p= link_to 'Set best', set_best_answer_path(answer),
                 remote: true,
@@ -18,6 +21,10 @@
       = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body
+        br
+        = f.label :files
+        = f.file_field :files, multiple: true, direct_upload: true
+        br
         = f.submit 'Save'
 
     hr
