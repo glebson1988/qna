@@ -4,6 +4,12 @@
       | Best answer:
     p= answer.body
 
+    .links
+      p Links:
+      ul
+        - answer.links.each do |link|
+          li= link_to link.name, link.url
+
     = render 'shared/attachments', resource: answer
 
     - if show_best?(answer)
