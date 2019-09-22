@@ -68,6 +68,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'launchy'
+  gem 'rspec-validator_spec_helper'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
