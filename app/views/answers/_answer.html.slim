@@ -7,11 +7,7 @@
     .links
       p Links:
       ul
-        - answer.links.each do |link|
-          - if link.gist?
-            p= link.gist_content
-          - else
-            li= link_to link.name, link.url
+        = render 'shared/link', resource: answer
 
     = render 'shared/attachments', resource: answer
 

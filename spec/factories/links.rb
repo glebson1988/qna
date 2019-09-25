@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :link do
     name { "MyString" }
+    url { 'http://www.glebkaif.ru/'}
 
     trait :linkable do
       association :linkable, factory: :answer

@@ -6,11 +6,7 @@ p= @question.body
 .links
   p Links:
   ul
-    - @question.links.each do |link|
-      - if link.gist?
-        p= link.gist_content
-      - else
-        li= link_to link.name, link.url
+    = render 'shared/link', resource: @question
 
 - if current_user&.author_of?(@question)
   p= link_to 'Delete question',

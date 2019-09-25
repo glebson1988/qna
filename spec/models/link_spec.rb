@@ -7,7 +7,8 @@ RSpec.describe Link, type: :model do
   it { should validate_presence_of :url }
 
   let(:valid_link) { create(:link, :valid_gist, :linkable)}
-  let(:invalid_link) {create(:link, :invalid_gist, :linkable)}
+  let(:invalid_link) { create(:link, :invalid_gist, :linkable) }
+  let(:link) { create :link, :linkable }
 
   describe '#gist_id' do
     it 'returns id for gist link' do
@@ -26,6 +27,16 @@ RSpec.describe Link, type: :model do
 
     it 'invalid' do
       expect(invalid_link).to_not be_gist
+    end
+  end
+
+  describe '#gist_content' do
+    it 'gets content' do
+      expect(valid_link.gist_content).to eq 'qnatest'
+    end
+
+    it 'returns false for not gist link' do
+      expect(link.gist_content).to be_falsey
     end
   end
 end
