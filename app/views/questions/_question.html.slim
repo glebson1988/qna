@@ -2,10 +2,16 @@
   div id = "question_#{question.id}"
     = link_to question.title, question_path(question)
 
+    .links
+      p Links:
+      ul
+        = render 'shared/link', resource: question
+
     = render 'shared/attachments', resource: question
 
     - if current_user&.author_of?(question)
       p= link_to 'Edit', '#', class: 'edit-question-link', data: {question_id: question.id}
+
       p= button_to 'Delete',
               question_path(question),
               method: :delete,
@@ -21,6 +27,11 @@
         = f.label :files
         = f.file_field :files, multiple: true, direct_upload: true
         br
-        = f.submit 'Save'
+        p Links:
+        #links
+          = f.fields_for :links do |l|
+          .add_link
+            = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'
+        = f.submit 'Save question'
       hr
 br

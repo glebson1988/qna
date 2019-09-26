@@ -1,4 +1,5 @@
 - if resource.files.attached?
+  p Files:
   .attachments
     - resource.files.each do |file|
       div id="attachment_#{file.id}"

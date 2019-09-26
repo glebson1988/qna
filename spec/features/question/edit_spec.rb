@@ -9,6 +9,7 @@ feature 'User can edit his question', %q{
   given(:author) { create(:user) }
   given(:user) { create(:user) }
   given!(:question) { create(:question, user: author) }
+  given(:url) { 'https://github.com' }
 
   describe 'Author of question', js: true do
 
@@ -54,6 +55,21 @@ feature 'User can edit his question', %q{
 
         expect(page).to have_link 'rails_helper.rb'
         expect(page).to have_link 'spec_helper.rb'
+      end
+    end
+
+    scenario 'add link to edited question' do
+      within '.questions' do
+        click_on 'Edit'
+
+        click_on 'add link'
+
+        fill_in 'Link name', with: 'SomeLink'
+        fill_in 'Url', with: url
+
+        click_on 'Save question'
+
+        expect(page).to have_link 'SomeLink', href: url
       end
     end
   end
