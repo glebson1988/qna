@@ -12,5 +12,6 @@
     = f.file_field :files, multiple: true, direct_upload: true
 
   = render 'shared/add_links', f: f
+  = render 'reward_form', f: f
 
   p= f.submit 'Ask'

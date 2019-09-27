@@ -15,7 +15,7 @@ RSpec.describe Answer, type: :model do
 
   describe 'check set_best method' do
     let(:user) { create(:user) }
-    let(:question) { create(:question, user: user) }
+    let(:question) { create(:question, :with_reward, user: user) }
     let!(:answer) { create(:answer, question: question, user: user) }
     let!(:other_answer) { create(:answer, question: question, user: user) }
     let(:answers) { create_list(:answer, 3, question: question, user: user)}
@@ -34,6 +34,10 @@ RSpec.describe Answer, type: :model do
     it 'best answer must be first in the list' do
       answers.last.set_best!
       expect(question.answers.first).to be_best
+    end
+
+    it 'should reward must belong to the user' do
+      user.rewards.each { |reward| expect(reward.user_id).to eq user.id }
     end
   end
 end

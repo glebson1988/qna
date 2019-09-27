@@ -12,6 +12,10 @@ FactoryBot.define do
       body { nil }
     end
 
+    trait :with_reward do
+      reward { create(:reward) }
+    end
+
     trait :with_attachment do
       after :create do |question|
         question.files.attach(io: File.open("#{Rails.root}/spec/rails_helper.rb"),
