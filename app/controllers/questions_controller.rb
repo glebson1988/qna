@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :body, files: [],
                                      links_attributes: [:name, :url],
-                                     reward_attributes: [:title, :picture])
+                                     reward_attributes: [:title, :image])
   end
 
   def load_question
