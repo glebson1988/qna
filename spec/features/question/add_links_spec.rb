@@ -62,7 +62,7 @@ feature 'User can add links to question', %q{
       expect(page).to have_link 'SomeSecondLink', href: url2
     end
 
-    scenario 'with gist-link' do
+    scenario 'with gist-link', :vcr do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'
 

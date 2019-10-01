@@ -9,7 +9,7 @@ class Link < ApplicationRecord
   end
 
   def gist?
-    gist_content
+    gist_id
   end
 
   private

@@ -70,6 +70,8 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'rspec-validator_spec_helper'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

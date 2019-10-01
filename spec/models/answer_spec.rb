@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
+  it_behaves_like 'is_linkable'
+
   it { should belong_to :question}
 
-  it { should have_many(:links).dependent(:destroy) }
-
   it { should validate_presence_of(:body) }
-
-  it { should accept_nested_attributes_for :links }
 
   it 'has many attached files' do
     expect(Answer.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
@@ -37,7 +35,7 @@ RSpec.describe Answer, type: :model do
     end
 
     it 'should reward must belong to the user' do
-      user.rewards.each { |reward| expect(reward.user_id).to eq user.id }
+      user.rewards.each { |reward| expect(reward.user).to eq user }
     end
   end
 end

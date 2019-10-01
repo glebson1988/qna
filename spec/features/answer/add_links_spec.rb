@@ -25,7 +25,7 @@ feature 'User can add links to answer', %q{
       fill_in 'Url', with: url
 
       click_on 'Create'
-      sleep 0.7
+
       within '.answers' do
         expect(page).to have_link 'SomeLink', href: url
       end
@@ -56,25 +56,23 @@ feature 'User can add links to answer', %q{
       page.all('.nested-fields').last.fill_in 'Url', with: url2
 
       click_on 'Create'
-      sleep 0.6
+
       within '.answers' do
         expect(page).to have_link 'SomeLink', href: url
         expect(page).to have_link 'SomeSecondLink', href: url2
       end
     end
 
-    scenario 'with gist-link' do
+    scenario 'with gist-link', :vcr do
       fill_in 'Body', with: 'My answer'
 
       fill_in 'Link name', with: 'SomeLink'
       fill_in 'Url', with: gist_url
 
       click_on 'Create'
-      sleep 0.6
-      within '.answers' do
-        expect(page).to have_content 'qnatest'
-        expect(page).to_not have_link 'SomeLink', href: gist_url
-      end
+
+      expect(page).to have_content 'qnatest'
+      expect(page).to_not have_link 'SomeLink', href: gist_url
     end
   end
 end
