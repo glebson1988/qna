@@ -29,4 +29,4 @@
 .idea
 .DS_store
 .env
-/spec/vcr_cassettes/*
+

@@ -101,4 +101,5 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.ignore_hosts '127.0.0.1', 'localhost'
+  config.filter_sensitive_data("<GITHUB>") { ENV["GITHUB_ACCESS_TOKEN"] }
 end
