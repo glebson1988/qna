@@ -5,7 +5,11 @@ class Link < ApplicationRecord
   validates :url, presence: true, url: true
 
   def gist_content
-    @gist_content ||= GistService.new(gist_id).call
+    return gist_body unless gist_body.nil?
+
+    contents = GistService.new(gist_id).call
+    update(gist_body: contents)
+    contents
   end
 
   def gist?

@@ -23,7 +23,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Wed, 02 Oct 2019 16:09:58 GMT
+      - Thu, 03 Oct 2019 05:57:43 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -35,9 +35,9 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4990'
+      - '4994'
       X-Ratelimit-Reset:
-      - '1570036198'
+      - '1570085828'
       X-Oauth-Scopes:
       - gist
       X-Accepted-Oauth-Scopes:
@@ -63,10 +63,10 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'
       X-Github-Request-Id:
-      - E0B7:427C7:180B07E:1D3F02B:5D94CBD6
+      - DE4C:3B391:2D9CA01:37670F2:5D958DD7
     body:
       encoding: ASCII-8BIT
       string: '{"message":"Not Found","documentation_url":"https://developer.github.com/v3"}'
     http_version: 
-  recorded_at: Wed, 02 Oct 2019 16:09:58 GMT
+  recorded_at: Thu, 03 Oct 2019 05:57:44 GMT
 recorded_with: VCR 5.0.0
