@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 03 Oct 2019 05:57:32 GMT
+      - Mon, 07 Oct 2019 19:08:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -35,9 +35,9 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4996'
+      - '4979'
       X-Ratelimit-Reset:
-      - '1570085828'
+      - '1570478589'
       Cache-Control:
       - private, max-age=60, s-maxage=60
       Vary:
@@ -72,10 +72,88 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'
       X-Github-Request-Id:
-      - DAF2:427C7:22DF025:2A569AE:5D958DCB
+      - FCBA:3B391:A6B7B4E:CA7383B:5D9B8D2D
     body:
       encoding: ASCII-8BIT
       string: '{"url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34","forks_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/forks","commits_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/commits","id":"f98759463ccbd9ebc42ea503c80ffa34","node_id":"MDQ6R2lzdGY5ODc1OTQ2M2NjYmQ5ZWJjNDJlYTUwM2M4MGZmYTM0","git_pull_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34.git","git_push_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34.git","html_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34","files":{"test":{"filename":"test","type":"text/plain","language":null,"raw_url":"https://gist.githubusercontent.com/glebson1988/f98759463ccbd9ebc42ea503c80ffa34/raw/a0292b70864a669b5a95942db2434787580c163a/test","size":7,"truncated":false,"content":"qnatest"}},"public":true,"created_at":"2019-09-24T06:59:46Z","updated_at":"2019-09-24T06:59:46Z","description":"","comments":0,"user":null,"comments_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/comments","owner":{"login":"glebson1988","id":18693912,"node_id":"MDQ6VXNlcjE4NjkzOTEy","avatar_url":"https://avatars3.githubusercontent.com/u/18693912?v=4","gravatar_id":"","url":"https://api.github.com/users/glebson1988","html_url":"https://github.com/glebson1988","followers_url":"https://api.github.com/users/glebson1988/followers","following_url":"https://api.github.com/users/glebson1988/following{/other_user}","gists_url":"https://api.github.com/users/glebson1988/gists{/gist_id}","starred_url":"https://api.github.com/users/glebson1988/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/glebson1988/subscriptions","organizations_url":"https://api.github.com/users/glebson1988/orgs","repos_url":"https://api.github.com/users/glebson1988/repos","events_url":"https://api.github.com/users/glebson1988/events{/privacy}","received_events_url":"https://api.github.com/users/glebson1988/received_events","type":"User","site_admin":false},"forks":[],"history":[{"user":{"login":"glebson1988","id":18693912,"node_id":"MDQ6VXNlcjE4NjkzOTEy","avatar_url":"https://avatars3.githubusercontent.com/u/18693912?v=4","gravatar_id":"","url":"https://api.github.com/users/glebson1988","html_url":"https://github.com/glebson1988","followers_url":"https://api.github.com/users/glebson1988/followers","following_url":"https://api.github.com/users/glebson1988/following{/other_user}","gists_url":"https://api.github.com/users/glebson1988/gists{/gist_id}","starred_url":"https://api.github.com/users/glebson1988/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/glebson1988/subscriptions","organizations_url":"https://api.github.com/users/glebson1988/orgs","repos_url":"https://api.github.com/users/glebson1988/repos","events_url":"https://api.github.com/users/glebson1988/events{/privacy}","received_events_url":"https://api.github.com/users/glebson1988/received_events","type":"User","site_admin":false},"version":"7b0ea075c9ab13d79c7c30486f57b9da9a764d33","committed_at":"2019-09-24T06:59:45Z","change_status":{"total":1,"additions":1,"deletions":0},"url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/7b0ea075c9ab13d79c7c30486f57b9da9a764d33"}],"truncated":false}'
     http_version: 
-  recorded_at: Thu, 03 Oct 2019 05:57:32 GMT
+  recorded_at: Mon, 07 Oct 2019 19:08:30 GMT
+- request:
+    method: get
+    uri: https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.14.0
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <GITHUB>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 07 Oct 2019 19:08:30 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - GitHub.com
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4978'
+      X-Ratelimit-Reset:
+      - '1570478589'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      Etag:
+      - W/"4f03ba8c4eb871b519f638923a34d204"
+      Last-Modified:
+      - Sat, 28 Sep 2019 07:12:09 GMT
+      X-Oauth-Scopes:
+      - gist
+      X-Accepted-Oauth-Scopes:
+      - ''
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining,
+        X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+        X-GitHub-Media-Type
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - deny
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Referrer-Policy:
+      - origin-when-cross-origin, strict-origin-when-cross-origin
+      Content-Security-Policy:
+      - default-src 'none'
+      X-Github-Request-Id:
+      - FCBB:181F8:AA7D61E:CF0D923:5D9B8D2E
+    body:
+      encoding: ASCII-8BIT
+      string: '{"url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34","forks_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/forks","commits_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/commits","id":"f98759463ccbd9ebc42ea503c80ffa34","node_id":"MDQ6R2lzdGY5ODc1OTQ2M2NjYmQ5ZWJjNDJlYTUwM2M4MGZmYTM0","git_pull_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34.git","git_push_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34.git","html_url":"https://gist.github.com/f98759463ccbd9ebc42ea503c80ffa34","files":{"test":{"filename":"test","type":"text/plain","language":null,"raw_url":"https://gist.githubusercontent.com/glebson1988/f98759463ccbd9ebc42ea503c80ffa34/raw/a0292b70864a669b5a95942db2434787580c163a/test","size":7,"truncated":false,"content":"qnatest"}},"public":true,"created_at":"2019-09-24T06:59:46Z","updated_at":"2019-09-24T06:59:46Z","description":"","comments":0,"user":null,"comments_url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/comments","owner":{"login":"glebson1988","id":18693912,"node_id":"MDQ6VXNlcjE4NjkzOTEy","avatar_url":"https://avatars3.githubusercontent.com/u/18693912?v=4","gravatar_id":"","url":"https://api.github.com/users/glebson1988","html_url":"https://github.com/glebson1988","followers_url":"https://api.github.com/users/glebson1988/followers","following_url":"https://api.github.com/users/glebson1988/following{/other_user}","gists_url":"https://api.github.com/users/glebson1988/gists{/gist_id}","starred_url":"https://api.github.com/users/glebson1988/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/glebson1988/subscriptions","organizations_url":"https://api.github.com/users/glebson1988/orgs","repos_url":"https://api.github.com/users/glebson1988/repos","events_url":"https://api.github.com/users/glebson1988/events{/privacy}","received_events_url":"https://api.github.com/users/glebson1988/received_events","type":"User","site_admin":false},"forks":[],"history":[{"user":{"login":"glebson1988","id":18693912,"node_id":"MDQ6VXNlcjE4NjkzOTEy","avatar_url":"https://avatars3.githubusercontent.com/u/18693912?v=4","gravatar_id":"","url":"https://api.github.com/users/glebson1988","html_url":"https://github.com/glebson1988","followers_url":"https://api.github.com/users/glebson1988/followers","following_url":"https://api.github.com/users/glebson1988/following{/other_user}","gists_url":"https://api.github.com/users/glebson1988/gists{/gist_id}","starred_url":"https://api.github.com/users/glebson1988/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/glebson1988/subscriptions","organizations_url":"https://api.github.com/users/glebson1988/orgs","repos_url":"https://api.github.com/users/glebson1988/repos","events_url":"https://api.github.com/users/glebson1988/events{/privacy}","received_events_url":"https://api.github.com/users/glebson1988/received_events","type":"User","site_admin":false},"version":"7b0ea075c9ab13d79c7c30486f57b9da9a764d33","committed_at":"2019-09-24T06:59:45Z","change_status":{"total":1,"additions":1,"deletions":0},"url":"https://api.github.com/gists/f98759463ccbd9ebc42ea503c80ffa34/7b0ea075c9ab13d79c7c30486f57b9da9a764d33"}],"truncated":false}'
+    http_version: 
+  recorded_at: Mon, 07 Oct 2019 19:08:31 GMT
 recorded_with: VCR 5.0.0

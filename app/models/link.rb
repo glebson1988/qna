@@ -4,15 +4,13 @@ class Link < ApplicationRecord
   validates :name, presence: true
   validates :url, presence: true, url: true
 
-  def gist_content
-    @gist_content ||= GistService.new(gist_id).call
-  end
+  after_create :gist?
 
   def gist?
-    gist_id
+    update!(gist_body: GistService.new(gist_id).call) unless gist_id.nil?
   end
 
-  # private
+  private
 
   def gist_id
     url.match(/https:\/\/gist.github.com\/\w+\/(\w+)/)[1] rescue nil

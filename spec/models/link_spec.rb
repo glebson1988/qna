@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Link, type: :model  do
+RSpec.describe Link, :vcr do
   it { should belong_to :linkable }
 
   it { should validate_presence_of :name }
@@ -27,16 +27,6 @@ RSpec.describe Link, type: :model  do
 
     it 'invalid' do
       expect(invalid_link).to_not be_gist
-    end
-  end
-
-  describe '#gist_content', :vcr  do
-    it 'gets content' do
-      expect(valid_link.gist_content).to eq 'qnatest'
-    end
-
-    it 'returns false for not gist link' do
-      expect(link.gist_content).to be_falsey
     end
   end
 end

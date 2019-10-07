@@ -2,9 +2,7 @@
   - if link.persisted?
     div id="link_#{link.id}"
       - if link.gist?
-        div.link-gist data-id=link.gist_id
-        / = javascript_include_tag "#{link.url}.js"
-        / li= link.gist_content
+        li= link.gist_body
       - else
         li= link_to link.name, link.url
       -if current_user&.author_of?(link.linkable)
