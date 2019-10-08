@@ -4,10 +4,15 @@ class Link < ApplicationRecord
   validates :name, presence: true
   validates :url, presence: true, url: true
 
-  after_create :gist?
+  after_create :save_gist_body!, if: :gist?
 
   def gist?
-    update!(gist_body: GistService.new(gist_id).call) unless gist_id.nil?
+    gist_id.present?
+  end
+
+  def save_gist_body!
+    gist_body = GistService.new(gist_id).call
+    update! gist_body: gist_body
   end
 
   private
