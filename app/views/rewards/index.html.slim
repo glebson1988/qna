@@ -1,0 +1,11 @@
+h3= current_user.email
+
+p Rewards:
+- if !@rewards.empty?
+  - @rewards.each do |reward|
+    p= reward.question.title
+    p= reward.title
+    p= image_tag reward.image if reward.image.attached?
+    hr
+- else
+  p= '- You have no awards yet -'

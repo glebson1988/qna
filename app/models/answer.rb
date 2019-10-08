@@ -1,4 +1,6 @@
 class Answer < ApplicationRecord
+  include Linkable
+
   default_scope { order(best: :desc).order(created_at: :asc) }
 
   belongs_to :question
@@ -12,6 +14,7 @@ class Answer < ApplicationRecord
     transaction do
       question.answers.lock!.update_all(best: false)
       update!(best: true)
+      question.reward&.update!(user: user)
     end
   end
 end

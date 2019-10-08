@@ -2,6 +2,11 @@
   div id = "question_#{question.id}"
     = link_to question.title, question_path(question)
 
+    .links
+      p Links:
+      ul
+        = render 'shared/link', resource: question
+
     = render 'shared/attachments', resource: question
 
     - if current_user&.author_of?(question)
@@ -11,16 +16,6 @@
               method: :delete,
               data: {confirm: 'Are you sure?'}
 
-      = form_with model: question, class: 'hidden', html: {id: "edit-question-#{question.id}"} do |f|
-        = f.label :title, 'Title'
-        = f.text_field :title
-        br
-        = f.label :body, 'Body'
-        = f.text_area :body
-        br
-        = f.label :files
-        = f.file_field :files, multiple: true, direct_upload: true
-        br
-        = f.submit 'Save'
-      hr
+      = render 'edit_form', question: question
+
 br

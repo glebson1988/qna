@@ -8,7 +8,7 @@ feature 'Set best answer', %q{
 
   given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: author) }
+  given!(:question) { create(:question, :with_reward, user: author) }
   given!(:answer) { create(:answer, question: question, user: author) }
   given!(:answers) { create_list(:answer, 4, question: question, user: author) }
 
@@ -59,5 +59,19 @@ feature 'Set best answer', %q{
     visit question_path(answer.question)
 
     expect(page).to_not have_link 'Set best'
+  end
+
+  scenario 'Authorized user can see his awards', js: true do
+    sign_in(author)
+    visit question_path(question)
+
+    within "#answer_#{answer.id}" do
+      click_on 'Set best'
+    end
+
+    sleep 0.5
+
+    visit rewards_path
+    expect(page).to have_content 'MyReward'
   end
 end

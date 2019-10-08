@@ -40,6 +40,8 @@ gem 'devise'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem "aws-sdk-s3", require: false
+gem 'cocoon'
+gem "octokit", "~> 4.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -67,6 +69,9 @@ group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'launchy'
+  gem 'rspec-validator_spec_helper'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
