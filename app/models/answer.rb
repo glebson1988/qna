@@ -1,5 +1,5 @@
 class Answer < ApplicationRecord
-  include Linkable
+  include Linkable, Votable
 
   default_scope { order(best: :desc).order(created_at: :asc) }
 

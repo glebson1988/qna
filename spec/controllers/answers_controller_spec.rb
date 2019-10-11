@@ -179,4 +179,6 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  it_behaves_like 'voted'
 end
