@@ -1,0 +1,22 @@
+-if current_user && !current_user.author_of?(resource)
+  .vote
+    p
+      = link_to '+', polymorphic_path(resource, action: :vote_up),
+              method: :patch,
+              data: { type: :json },
+              remote: true
+
+    p.rating
+      = resource.rating
+
+    p
+      = link_to '-', polymorphic_path(resource, action: :vote_down),
+              method: :patch,
+              data: { type: :json },
+              remote: true
+
+    p
+      = link_to 'Cancel vote', polymorphic_path(resource, action: :cancel_vote),
+              method: :delete,
+              data: { type: :json },
+              remote: true
