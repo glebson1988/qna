@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  it_behaves_like 'is_linkable'
+  it_behaves_like 'linkable'
+  it_behaves_like 'votable'
 
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_one(:reward).dependent(:destroy) }

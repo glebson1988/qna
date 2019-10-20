@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
-  it_behaves_like 'is_linkable'
+  it_behaves_like 'linkable'
+  it_behaves_like 'votable'
 
   it { should belong_to :question}
 
