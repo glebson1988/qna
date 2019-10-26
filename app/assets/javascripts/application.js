@@ -17,4 +17,6 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require cocoon
+//= require action_cable
+//= require skim
 //= require_tree .
