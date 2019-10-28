@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function () {
             return this.perform('follow');
         },
         received: function (data) {
-            $('.questions').append(JST["templates/question"](data));
+            $('.questions').append(JST['templates/question'](data));
         }
     })
 });

@@ -4,10 +4,11 @@ feature 'User can create answers for questions', %q{
   In order to help with problem of question
   As an authenticated user
   I want to be able to create new answer
-} do
+}, :vcr do
 
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
+  given(:url) { 'http://glebkaif.ru' }
 
   describe 'Authenticated user', js: true do
 
@@ -38,6 +39,40 @@ feature 'User can create answers for questions', %q{
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+  end
+
+  describe 'Multiple sessions', js: true do
+    scenario 'answer appears on another users page' do
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Body', with: 'My answer'
+
+        fill_in 'Link name', with: 'SomeLink'
+        fill_in 'Url', with: url
+
+        click_on 'Create'
+
+        within '.answers' do
+          expect(page).to have_content 'My answer'
+          expect(page).to have_link 'SomeLink', href: url
+        end
+      end
+
+      Capybara.using_session('guest') do
+        within '.answers' do
+          expect(page).to have_content 'My answer'
+          expect(page).to have_link 'SomeLink', href: url
+        end
+      end
     end
   end
 

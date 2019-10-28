@@ -1,0 +1,24 @@
+div id = "answer_#{@answer.id}"
+  p= @answer.body
+
+  -if gon.user_id && !(gon.user_id == @answer.user_id)
+    .vote
+      p
+        a href="/answers/#{@answer.id}/vote_up" data-method="patch" data-type="json" data-remote="true" +
+
+      p.rating
+        =@rating
+
+      p
+        a href="/answers/#{@answer.id}/vote_down" data-method="patch" data-type="json" data-remote="true" -
+
+  .links
+    p Links:
+    ul
+    -for link in @links
+      div id="link_#{link.id}"
+        li
+          a href=link.url = link.name
+
+  -if (gon.user_id == gon.question_user_id) && !@answer.best
+    a href="/answers/#{@answer.id}/set_best" data-method="patch" data-remote="true" Set best
