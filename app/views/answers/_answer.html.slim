@@ -25,6 +25,10 @@
               remote: true,
               method: :delete
 
+    .comment-block
+      p Comments:
+      = render 'comments/form', resource: answer
+
       = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body

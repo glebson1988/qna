@@ -3,7 +3,6 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :load_question, only: %i[show destroy update]
-
   after_action :publish_question, only: :create
 
   def index
@@ -19,6 +18,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = @question.answers.new
     @answer.links.new
+    @comment = Comment.new
   end
 
   def create

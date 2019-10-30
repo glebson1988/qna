@@ -14,10 +14,14 @@ p= @question.body
           method: :delete,
           data: {confirm: 'Are you sure?'}
 
+div id ="question_#{@question.id}"
+  .comment-block
+    p Comments:
+    = render 'comments/form', resource: @question
 
-h2 Answers
 hr
 .answers
+  h2 Answers
   = render @question.answers
 
 - if current_user.present?

@@ -13,7 +13,6 @@ $(document).on('turbolinks:load', function () {
         },
         received: function (data) {
             if (gon.user_id !== data.answer.user_id) {
-                console.log(data);
                 $('.answers').append(JST['templates/answer']({
                     answer: data.answer,
                     links: data.links,
