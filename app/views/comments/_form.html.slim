@@ -1,0 +1,8 @@
+.comment-errors
+
+  = form_with model: [resource, Comment.new], method: :post, class: 'new-comment' do |f|
+    p
+      = f.label :body, 'Comment'
+      = f.text_area :body
+    p
+      = f.submit 'Add comment'

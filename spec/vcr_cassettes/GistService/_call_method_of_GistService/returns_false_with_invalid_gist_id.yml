@@ -23,7 +23,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Wed, 16 Oct 2019 11:17:27 GMT
+      - Tue, 29 Oct 2019 05:48:59 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -35,9 +35,9 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4994'
+      - '4995'
       X-Ratelimit-Reset:
-      - '1571228229'
+      - '1572331717'
       X-Oauth-Scopes:
       - gist
       X-Accepted-Oauth-Scopes:
@@ -63,10 +63,10 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'
       X-Github-Request-Id:
-      - 8386:1E720:1D7A105:23A10D9:5DA6FC46
+      - D956:1B07F:4706B2:54D183:5DB7D2CB
     body:
       encoding: ASCII-8BIT
       string: '{"message":"Not Found","documentation_url":"https://developer.github.com/v3/gists/#get-a-single-gist"}'
     http_version: 
-  recorded_at: Wed, 16 Oct 2019 11:17:27 GMT
+  recorded_at: Tue, 29 Oct 2019 05:48:59 GMT
 recorded_with: VCR 5.0.0
