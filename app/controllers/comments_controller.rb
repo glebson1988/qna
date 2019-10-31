@@ -25,7 +25,9 @@ class CommentsController < ApplicationController
   end
 
   def question_id
-    commentable.is_a?(Question) ? commentable.id : commentable.question.id
+    return commentable.id if commentable.is_a?(Question)
+
+    return commentable.question.id if commentable.is_a?(Answer)
   end
 
   def publish_comment

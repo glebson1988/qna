@@ -1,7 +1,7 @@
 div id = "answer_#{@answer.id}"
   p= @answer.body
 
-  -if gon.user_id && !(gon.user_id == @answer.user_id)
+  -if gon.user_id == @answer.user_id
     .vote
       p
         a href="/answers/#{@answer.id}/vote_up" data-method="patch" data-type="json" data-remote="true" +

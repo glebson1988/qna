@@ -17,7 +17,10 @@ p= @question.body
 div id ="question_#{@question.id}"
   .comment-block
     p Comments:
-    = render 'comments/form', resource: @question
+    .comments
+      = render @question.comments
+    -if user_signed_in?
+      = render 'comments/form', resource: @question
 
 hr
 .answers

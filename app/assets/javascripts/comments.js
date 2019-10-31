@@ -4,8 +4,8 @@ $(document).on('turbolinks:load', function () {
             resourceId = e.detail[0]['commentable_id'],
             resourceContent = e.detail[0]['body'];
 
-        $('#comment_body').val('');
-        $(`#${resourceName}_${resourceId} .comment-block .comments`).append('<div class="comment"><p>'+
+        $('textarea').val('');
+        $(`#${resourceName}_${resourceId} .comments`).append('<div class="comment"><p>'+
             resourceContent + '</p></div>');
     })
         .on('ajax:error', function (e) {
@@ -28,9 +28,9 @@ $(document).on('turbolinks:load', function () {
                     newComment = JST['templates/comment']({comment: data.comment});
 
                 if (resourceName === 'Question') {
-                    $(`#question_${resourceId} .comment-block .comments`).append(newComment);
+                    $(`#question_${resourceId} .comments`).append(newComment);
                 } else if (resourceName === 'Answer') {
-                    $(`#answer_${resourceId} .comment-block .comments`).append(newComment);
+                    $(`#answer_${resourceId} .comments`).append(newComment);
                 }
             }
         }

@@ -3,25 +3,24 @@ require 'rails_helper'
 RSpec.describe CommentsController, type: :controller do
   let(:user) { create(:user) }
   let(:question) { create(:question, user: user) }
-  let(:create_comment) { post :create, params: { comment: attributes_for(:comment),
-                                                 question_id: question }, format: :json}
 
   describe 'POST #create' do
     context 'Authorized user creates comment with valid attributes' do
       before { login(user) }
 
       it 'saves a new comment to database' do
-        expect { create_comment }.to change(Comment, :count).by 1
+        expect { post :create, params: { comment: attributes_for(:comment), question_id: question }, format: :json }.to change(Comment, :count).by 1
       end
 
       it 'created by current user' do
-        create_comment
+        post :create, params: { comment: attributes_for(:comment), question_id: question }, format: :json
 
         expect(assigns(:comment).user).to eq user
       end
 
       it 'returns data in json' do
-        create_comment
+        post :create, params: { comment: attributes_for(:comment),
+                                question_id: question }, format: :json
 
         expect(JSON.parse(response.body).keys).to eq %w(id body user_id commentable_type commentable_id created_at updated_at)
       end
@@ -43,7 +42,8 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'Unauthorized user' do
       it 'tries to save a new comment to database' do
-        expect { create_comment }.to_not change(Comment, :count)
+        expect { post :create, params: { comment: attributes_for(:comment),
+                                         question_id: question }, format: :json }.to_not change(Comment, :count)
       end
     end
   end
