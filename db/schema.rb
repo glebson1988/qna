@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_112934) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
     t.index ["user_id"], name: "index_authorizations_on_user_id"
   end
 
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_112934) do
     t.bigint "linkable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "gist_body"
+    t.string "gist_body"
     t.index ["linkable_type", "linkable_id"], name: "index_links_on_linkable_type_and_linkable_id"
   end
 
