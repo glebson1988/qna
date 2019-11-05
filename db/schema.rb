@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_112934) do
     t.bigint "linkable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "gist_body"
+    t.text "gist_body"
     t.index ["linkable_type", "linkable_id"], name: "index_links_on_linkable_type_and_linkable_id"
   end
 
