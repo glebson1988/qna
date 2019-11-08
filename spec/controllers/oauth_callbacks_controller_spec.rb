@@ -6,7 +6,8 @@ RSpec.describe OauthCallbacksController, type: :controller do
   end
 
   describe 'Github' do
-    let(:oauth_data) { { 'provider' => 'github', 'uid' => 123 } }
+    let(:oauth_data) { mock_auth_hash(:github, 'new@user.com') }
+    before { @request.env['omniauth.auth'] = mock_auth_hash(:github, 'new@user.com') }
 
     it 'finds user from oauth data' do
       allow(request.env).to receive(:[]).and_call_original
@@ -46,10 +47,20 @@ RSpec.describe OauthCallbacksController, type: :controller do
         expect(subject.current_user).to_not be
       end
     end
+
+    context 'has no user email' do
+      before { @request.env['omniauth.auth'] = mock_auth_hash(:github) }
+
+      it 'redirects to submit email form' do
+        get :github
+        expect(response).to redirect_to user_set_email_path
+      end
+    end
   end
 
   describe 'Vkontakte' do
-    let(:oauth_data) { { 'provider' => 'vkontakte', 'uid' => 111 } }
+    let(:oauth_data) { mock_auth_hash(:vkontakte, 'new@user.com') }
+    before { @request.env['omniauth.auth'] = mock_auth_hash(:vkontakte, 'new@user.com') }
 
     it 'finds user from oauth data' do
       allow(request.env).to receive(:[]).and_call_original
@@ -87,6 +98,15 @@ RSpec.describe OauthCallbacksController, type: :controller do
 
       it 'does not login user' do
         expect(subject.current_user).to_not be
+      end
+    end
+
+    context 'has no user email' do
+      before { @request.env['omniauth.auth'] = mock_auth_hash(:vkontakte) }
+
+      it 'redirects to submit email form' do
+        get :vkontakte
+        expect(response).to redirect_to user_set_email_path
       end
     end
   end

@@ -1,6 +1,7 @@
 class OauthCallbacksController < Devise::OmniauthCallbacksController
+  
   def github
-    oauth('Github')
+    oauth('github')
   end
 
   def vkontakte
@@ -8,6 +9,11 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def oauth(provider)
+    unless request.env['omniauth.auth'].info[:email]
+      redirect_to user_set_email_path
+      return
+    end
+
     @user = User.find_for_oauth(request.env['omniauth.auth'])
 
     if @user&.persisted?

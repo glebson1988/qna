@@ -15,9 +15,21 @@ RSpec.describe User, type: :model do
   let(:service) { double('Services::FindForOauth') }
 
   it 'calls Services::FindForOauth' do
-    expect(Services::FindForOauth).to receive(:new).with(auth).and_return(service)
-    expect(service).to receive(:call)
+    expect(Services::FindForOauth).to receive(:new).and_return(service)
+    expect(service).to receive(:call).with(auth)
     User.find_for_oauth(auth)
+  end
+
+  describe '.create_by' do
+    let!(:user) { create(:user, email: 'already@user.com') }
+
+    it 'create new user' do
+      expect{ User.create_by('new@user.com') }.to change(User, :count).by(1)
+    end
+
+    it "don't create user if it already exists" do
+      expect{ User.create_by('already@user.com') }.to_not change(User, :count)
+    end
   end
 
   describe 'Check authorship' do
