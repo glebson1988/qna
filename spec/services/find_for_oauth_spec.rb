@@ -3,13 +3,12 @@ require 'rails_helper'
 RSpec.describe Services::FindForOauth do
 
   let!(:user) { create(:user) }
-  let(:auth) { mock_auth_hash(:github, user.email) }
-  let(:user_auth) { create(:authorization, user:user) }
-  subject { Services::FindForOauth.new }
+  let!(:auth) { mock_auth_hash(:github, user.email) }
+  let!(:user_auth) { create(:authorization, user:user) }
+  subject { Services::FindForOauth }
 
-  context 'user already has authorization' do
+  describe 'user already has authorization' do
     it 'returns the user' do
-      user_auth
       expect(subject.call(auth)).to eq user
     end
   end
@@ -20,17 +19,6 @@ RSpec.describe Services::FindForOauth do
 
       it 'does not create new user' do
         expect { subject.call(auth) }.to_not change(User, :count)
-      end
-
-      it 'creates authorization for user' do
-        expect { subject.call(auth) }.to change(user.authorizations, :count).by(1)
-      end
-
-      it 'creates authorization with provider and uid' do
-        authorization = subject.call(auth).authorizations.first
-
-        expect(authorization.provider).to eq auth.provider
-        expect(authorization.uid).to eq auth.uid
       end
 
       it 'returns user' do

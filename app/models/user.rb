@@ -14,12 +14,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[github vkontakte]
 
   def self.find_for_oauth(auth)
-    Services::FindForOauth.new.call(auth)
-  end
-
-  def self.create_by(email)
-    password = Devise.friendly_token[0, 20]
-    User.create(email: email, password: password, password_confirmation: password)
+    Services::FindForOauth.call(auth)
   end
 
   def create_authorization!(auth)

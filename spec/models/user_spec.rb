@@ -11,24 +11,32 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of :password }
 
   let!(:user) { create(:user) }
-  let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
-  let(:service) { double('Services::FindForOauth') }
+  let(:auth) { mock_auth_hash(:github, user.email) }
+  let(:authorization) { create(:authorization, 
+                                user:user, 
+                                provider: auth.provider, 
+                                uid: auth.uid) }
 
-  it 'calls Services::FindForOauth' do
-    expect(Services::FindForOauth).to receive(:new).and_return(service)
-    expect(service).to receive(:call).with(auth)
-    User.find_for_oauth(auth)
+  describe 'Services::FindForOauth' do
+    subject { Services::FindForOauth }
+
+    it 'calls that service' do
+      expect(subject).to receive(:call).with(auth)
+      User.find_for_oauth(auth)
+    end
   end
 
-  describe '.create_by' do
-    let!(:user) { create(:user, email: 'already@user.com') }
-
-    it 'create new user' do
-      expect{ User.create_by('new@user.com') }.to change(User, :count).by(1)
+  describe '#create_authorization!' do
+    it 'creates authorization for user' do
+      expect { user.create_authorization!(auth) }.to change(user.authorizations, :count).by(1)
     end
 
-    it "don't create user if it already exists" do
-      expect{ User.create_by('already@user.com') }.to_not change(User, :count)
+    it 'creates authorization with provider' do
+      expect(authorization.provider).to eq(auth.provider)
+    end
+
+    it 'creates authorization with uid' do
+      expect(authorization.uid).to eq(auth.uid)
     end
   end
 

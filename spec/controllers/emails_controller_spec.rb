@@ -12,10 +12,22 @@ RSpec.describe User::EmailsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before { post :create, params: { email: user.email } }
 
-    it 'redirects to login page' do
-      expect(response).to redirect_to new_user_session_path
+    context 'with valid attributes' do
+      it 'saves a new user in the database' do
+        expect { post :create, params: { email: user.email } }.to change(User, :count).by(1)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'renders new template' do
+        post :create, params: { email: 'wrong_email' }
+        expect(response).to render_template :new
+      end
+
+      it 'does not save new user in the database' do
+        expect { post :create, params: { email: 'wrong_email' } }.to_not change(User, :count)
+      end
     end
   end
 end

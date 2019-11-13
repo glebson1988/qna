@@ -3,10 +3,13 @@ class User::EmailsController < ApplicationController
   def new; end
 
   def create
-    if User.create_by(email).persisted?
-      redirect_to new_user_session_path, notice: 'Check your email box for confirmation'
+    password = Devise.friendly_token[0, 20]
+    user = User.create(email: email, password: password, password_confirmation: password)
+    
+    if user.persisted?
+      user.send_confirmation_instructions
     else
-      redirect_to new_user_session_path, notice: 'You can sign up'
+      render :new
     end
   end
 
