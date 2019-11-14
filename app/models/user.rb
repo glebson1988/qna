@@ -13,14 +13,6 @@ class User < ApplicationRecord
          :confirmable,
          :omniauthable, omniauth_providers: %i[github vkontakte]
 
-  def self.find_for_oauth(auth)
-    Services::FindForOauth.call(auth)
-  end
-
-  def create_authorization!(auth)
-    self.authorizations.create!(provider: auth.provider, uid: auth.uid)
-  end
-
   def author_of?(item)
     id == item.user_id
   end

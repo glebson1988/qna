@@ -17,6 +17,11 @@ RSpec.describe User::EmailsController, type: :controller do
       it 'saves a new user in the database' do
         expect { post :create, params: { email: user.email } }.to change(User, :count).by(1)
       end
+
+      it 'renders new view' do
+        post :create, params: { email: user.email }
+        expect(response).to render_template :new
+      end
     end
 
     context 'with invalid attributes' do

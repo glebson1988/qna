@@ -14,7 +14,7 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
       return
     end
 
-    @user = User.find_for_oauth(request.env['omniauth.auth'])
+    @user = Services::FindForOauth.call(request.env['omniauth.auth'])
 
     if @user&.confirmed?
       sign_in_and_redirect @user, event: :authentication

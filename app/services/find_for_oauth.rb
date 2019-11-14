@@ -16,7 +16,7 @@ class Services::FindForOauth
                             password: password,
                             password_confirmation: password,
                             confirmed_at: Time.zone.now)
-        user.create_authorization!(auth)
+        user.authorizations.create!(provider: auth.provider, uid: auth.uid)
       end
     end
     user
