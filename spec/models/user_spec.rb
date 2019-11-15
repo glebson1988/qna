@@ -5,13 +5,14 @@ RSpec.describe User, type: :model do
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:rewards).dependent(:destroy) }
   it { should have_many(:votes).dependent(:destroy) }
+  it { should have_many(:authorizations).dependent(:destroy) }
 
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
 
-  describe 'Check authorship' do
-    let(:user) { create(:user) }
+  let!(:user) { create(:user) }
 
+  describe 'Check authorship' do
     it 'current user is an author' do
       question = create(:question, user: user)
 

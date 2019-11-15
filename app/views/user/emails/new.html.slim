@@ -1,0 +1,8 @@
+p Enter your email
+
+= form_with url: user_set_email_path, method: :post do |f|
+  p
+    = f.label :email
+    = f.email_field :email
+
+  p= f.submit 'Submit'
