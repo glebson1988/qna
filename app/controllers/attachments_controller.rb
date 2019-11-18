@@ -3,6 +3,8 @@ class AttachmentsController < ApplicationController
   before_action :find_attachment
 
   def destroy
+    authorize! :destroy, @attachment
+
     @attachment.purge if current_user&.author_of?(@attachment.record)
   end
 
