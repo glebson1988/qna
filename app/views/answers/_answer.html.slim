@@ -18,8 +18,10 @@
                 remote: true,
                 method: :patch
 
-    - if current_user&.author_of?(answer)
+    - if can?(:update, answer)
       p= link_to 'Edit', '#', class: 'edit-answer-link', data: {answer_id: answer.id}
+
+    - if can?(:destroy, answer)
       p= button_to 'Delete',
               answer_path(answer),
               remote: true,
@@ -29,7 +31,7 @@
       p Comments:
       .comments
         = render answer.comments
-      -if user_signed_in?
+      -if can?(:create, Comment)
         = render 'comments/form', resource: answer
 
       = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
