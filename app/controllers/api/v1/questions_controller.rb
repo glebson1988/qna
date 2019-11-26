@@ -1,8 +1,8 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
 
-  before_action :question, only: %i[show]
+  skip_authorization_check
 
-  authorize_resource class: Question
+  before_action :find_question, only: %i[show update destroy]
 
   def index
     @questions = Question.all
@@ -10,7 +10,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def show
-    render json: question, serializer: QuestionSeparateSerializer
+    render json: @question, serializer: QuestionSeparateSerializer
   end
 
   def create
@@ -23,9 +23,26 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     end
   end
 
+  def update
+    authorize! :update, @question
+
+    if @question.update(question_params)
+      render json: @question, status: :created
+    else
+      render json: { errors: @question.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    authorize! :destroy, @question
+
+    @question.destroy
+    render json: { messages: ["Question was successfully deleted."] }
+  end
+
   private
 
-  def question
+  def find_question
     @question = Question.find(params[:id])
   end
 
