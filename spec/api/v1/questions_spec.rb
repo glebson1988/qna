@@ -147,8 +147,9 @@ describe 'Questions API', type: :request do
     end
 
     describe 'PATCH /api/v1/questions/:id' do
-      let(:access_token) { create(:access_token) }
-      let(:question) { create(:question, user_id: access_token.resource_owner_id) }
+      let(:user) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+      let(:question) { create(:question, user: user) }
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
       it_behaves_like 'API Authorizable' do
@@ -162,6 +163,8 @@ describe 'Questions API', type: :request do
                                       question: { title: 'new title', body: 'new body' },
                                       access_token: access_token.token }
           end
+
+          it_behaves_like 'Request successful'
 
           it 'changes question attributes' do
             question.reload
@@ -201,8 +204,9 @@ describe 'Questions API', type: :request do
     end
 
     describe 'DELETE /api/v1/questions/:id' do
-      let(:access_token) { create(:access_token) }
-      let(:question) { create(:question, user_id: access_token.resource_owner_id) }
+      let(:user) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+      let(:question) { create(:question, user: user) }
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
       it_behaves_like 'API Authorizable' do
