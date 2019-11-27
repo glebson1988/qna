@@ -48,9 +48,12 @@ describe 'Profiles API', type: :request do
 
       it_behaves_like 'Request successful'
 
-      it 'return all profiles without me' do
+      it 'returns list of users without one' do
         expect(json['users'].size).to eq(users.size - 1)
-        expect(json).to_not include me
+      end
+
+      it 'does not return me' do
+        expect(json['users'].map(&:user['id'])).to_not include(me.id)
       end
 
       it_behaves_like 'Public fields' do

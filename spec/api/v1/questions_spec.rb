@@ -15,7 +15,7 @@ describe 'Questions API', type: :request do
       let!(:questions) { create_list(:question, 2) }
       let(:question) { questions.first }
       let(:question_response) { json['questions'].first }
-      let!(:answers) { create_list(:answer, 3, question: question) }
+      let!(:answers) { create_list(:answer, 2, question: question) }
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
 
@@ -201,6 +201,23 @@ describe 'Questions API', type: :request do
           end
         end
       end
+
+      context 'not an author tries to update question' do
+        let(:other_user) { create(:user) }
+        let(:other_question) { create(:question, user: other_user) }
+        let(:other_api_path) { "/api/v1/questions/#{other_question.id}" }
+
+        it 'can not change question attributes' do
+           patch other_api_path, params: { id: other_question,
+                                     question: { title: 'new title', body: 'other_body' },
+                                     access_token: access_token.token }
+
+          other_question.reload
+
+          expect(other_question.title).to_not eq 'new title'
+          expect(other_question.body).to_not eq 'new body'
+        end
+      end
     end
 
     describe 'DELETE /api/v1/questions/:id' do
@@ -229,6 +246,20 @@ describe 'Questions API', type: :request do
           it 'returns json message' do
             expect(json['messages']).to include "Question was successfully deleted."
           end
+        end
+      end
+
+      context 'not an author' do
+        let(:other_user) { create(:user) }
+        let(:other_question) { create(:question, user: other_user) }
+        let(:other_api_path) { "/api/v1/questions/#{other_question.id}" }
+        let(:params) { { access_token: access_token.token,
+                           question_id: other_question } }
+
+        before { delete other_api_path, headers: headers, params: params }
+
+        it 'can not delete question from the database' do
+          expect(Question.count).to eq 1
         end
       end
     end

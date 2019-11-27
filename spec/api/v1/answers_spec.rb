@@ -14,7 +14,7 @@ describe 'Answers API', type: :request do
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
-      let!(:answers) { create_list(:answer, 3, question: question, user: user) }
+      let!(:answers) { create_list(:answer, 2, question: question, user: user) }
 
       before { get "/api/v1/questions/#{question.id}/answers", params: { access_token: access_token.token }, headers: headers }
 
@@ -181,6 +181,22 @@ describe 'Answers API', type: :request do
         expect(json['errors']).to be
       end
     end
+
+    context 'not an author tries to update answer' do
+      let(:other_user) { create(:user) }
+      let(:other_answer) { create(:answer, question: question, user: other_user) }
+      let(:other_api_path) { "/api/v1/answers/#{other_answer.id}" }
+
+      it 'can not change answer attributes' do
+        patch other_api_path, params: { id: other_answer,
+                                  answer: { body: 'other_body' },
+                                  access_token: access_token.token }
+
+        other_answer.reload
+
+        expect(other_answer.body).to_not eq 'new body'
+      end
+    end
   end
 
   describe 'DELETE /api/v1/answers/:id' do
@@ -210,6 +226,20 @@ describe 'Answers API', type: :request do
         it 'returns json message' do
           expect(json['messages']).to include "Answer was successfully deleted."
         end
+      end
+    end
+
+    context 'not an author' do
+      let(:other_user) { create(:user) }
+      let(:other_answer) { create(:answer, question: question, user: other_user) }
+      let(:other_api_path) { "/api/v1/answers/#{other_answer.id}" }
+      let(:params) { { access_token: access_token.token,
+                       id: other_answer } }
+
+      before { delete other_api_path, headers: headers, params: params }
+
+      it 'can not delete answer from the database' do
+        expect(Answer.count).to eq 1
       end
     end
   end
