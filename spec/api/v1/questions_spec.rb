@@ -61,8 +61,8 @@ describe 'Questions API', type: :request do
       let(:user) { create(:user) }
       let(:question) { create(:question, :with_attachment, user: user) }
       let(:question_response) { json['question'] }
-      let!(:comments) { create_list(:comment, 3, commentable: question, user: user) }
-      let!(:links) { create_list(:link, 3, linkable: question) }
+      let!(:comments) { create_list(:comment, 2, commentable: question, user: user) }
+      let!(:links) { create_list(:link, 2, linkable: question) }
       let(:access_token) { create(:access_token) }
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
@@ -207,15 +207,21 @@ describe 'Questions API', type: :request do
         let(:other_question) { create(:question, user: other_user) }
         let(:other_api_path) { "/api/v1/questions/#{other_question.id}" }
 
-        it 'can not change question attributes' do
-           patch other_api_path, params: { id: other_question,
-                                     question: { title: 'new title', body: 'other_body' },
-                                     access_token: access_token.token }
+        before do
+          patch other_api_path, params: { id: other_question,
+                                          question: { title: 'new title', body: 'new_body' },
+                                          access_token: access_token.token }
+        end
 
+        it 'returns status 302' do
+          expect(response.status).to eq 302
+        end
+
+        it 'can not change question attributes' do
           other_question.reload
 
-          expect(other_question.title).to_not eq 'new title'
-          expect(other_question.body).to_not eq 'new body'
+          expect(other_question.title).to eq other_question.title
+          expect(other_question.body).to eq other_question.body
         end
       end
     end
@@ -257,6 +263,10 @@ describe 'Questions API', type: :request do
                            question_id: other_question } }
 
         before { delete other_api_path, headers: headers, params: params }
+
+        it 'returns status 403' do
+          expect(response.status).to eq 403
+        end
 
         it 'can not delete question from the database' do
           expect(Question.count).to eq 1

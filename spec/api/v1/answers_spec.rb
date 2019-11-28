@@ -38,8 +38,8 @@ describe 'Answers API', type: :request do
       let(:question) { create(:question, :with_attachment, user: user) }
       let(:answer) { create(:answer, :with_attachment, question: question, user: user) }
       let(:answer_response) { json['answer'] }
-      let!(:comments) { create_list(:comment, 3, commentable: answer, user: user) }
-      let!(:links) { create_list(:link, 3, linkable: answer) }
+      let!(:comments) { create_list(:comment, 2, commentable: answer, user: user) }
+      let!(:links) { create_list(:link, 2, linkable: answer) }
       let(:access_token) { create(:access_token) }
       let(:api_path) { "/api/v1/answers/#{answer.id}" }
 
@@ -187,14 +187,20 @@ describe 'Answers API', type: :request do
       let(:other_answer) { create(:answer, question: question, user: other_user) }
       let(:other_api_path) { "/api/v1/answers/#{other_answer.id}" }
 
-      it 'can not change answer attributes' do
+      before do
         patch other_api_path, params: { id: other_answer,
-                                  answer: { body: 'other_body' },
-                                  access_token: access_token.token }
+                                        answer: { body: 'other_body' },
+                                        access_token: access_token.token }
+      end
 
+      it 'returns status 302' do
+        expect(response.status).to eq 302
+      end
+
+      it 'can not change answer attributes' do
         other_answer.reload
 
-        expect(other_answer.body).to_not eq 'new body'
+        expect(other_answer.body).to eq other_answer.body
       end
     end
   end
@@ -237,6 +243,10 @@ describe 'Answers API', type: :request do
                        id: other_answer } }
 
       before { delete other_api_path, headers: headers, params: params }
+
+      it 'returns status 403' do
+        expect(response.status).to eq 403
+      end
 
       it 'can not delete answer from the database' do
         expect(Answer.count).to eq 1

@@ -5,7 +5,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   before_action :find_question, only: %i[show update destroy]
 
   def index
-    @questions = Question.includes(:answers).limit(10)
+    @questions = Question.includes(:answers)
     render json: @questions
   end
 
