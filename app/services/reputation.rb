@@ -1,5 +1,5 @@
 class Services::Reputation
-  def self.calculate(object)
+  def self.call(object)
     sleep 2
   end
 end

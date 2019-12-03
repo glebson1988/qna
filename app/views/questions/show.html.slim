@@ -1,6 +1,10 @@
 h1= @question.title
 p= @question.body
 
+.subscription
+  - if can?(:create, Subscription)
+    = render 'subscriptions/subscription', resource: @question
+
 = render 'shared/attachments', resource: @question
 
 .links
