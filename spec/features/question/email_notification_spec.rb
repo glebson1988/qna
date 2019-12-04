@@ -24,10 +24,11 @@ feature 'User can receive email notifications about new answers', %q{
             fill_in 'Body', with: 'New answer'
             click_on 'Create'
           end
+
+          expect(page).to have_content 'New answer'
         end
 
         Capybara.using_session('author') do
-          sleep 1
           open_email(author.email)
           expect(current_email).to have_content 'New answer for question'
         end
@@ -48,10 +49,11 @@ feature 'User can receive email notifications about new answers', %q{
             fill_in 'Body', with: 'New answer'
             click_on 'Create'
           end
+
+          expect(page).to have_content 'New answer'
         end
 
         Capybara.using_session('author') do
-          sleep 1
           open_email(author.email)
           expect(current_email).to_not have_content 'New answer for question'
         end
@@ -74,10 +76,11 @@ feature 'User can receive email notifications about new answers', %q{
               fill_in 'Body', with: 'New answer'
               click_on 'Create'
             end
+
+            expect(page).to have_content 'New answer'
           end
 
           Capybara.using_session('user') do
-            sleep 1
             open_email(user.email)
             expect(current_email).to have_content 'New answer for question'
           end
@@ -99,10 +102,11 @@ feature 'User can receive email notifications about new answers', %q{
               fill_in 'Body', with: 'New answer'
               click_on 'Create'
             end
+
+            expect(page).to have_content 'New answer'
           end
 
           Capybara.using_session('user') do
-            sleep 1
             open_email(user.email)
             expect(current_email).to_not have_content 'New answer for question'
           end

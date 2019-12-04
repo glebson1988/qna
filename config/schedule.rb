@@ -14,7 +14,7 @@
 # end
 #
 every 1.day do
-  runner "DailyDigestJob.perform_now"
+  runner "Services::DailyDigest.call"
 end
 
 # Learn more: http://github.com/javan/whenever

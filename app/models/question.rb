@@ -14,7 +14,7 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
-  after_create :calculate_reputation, :subscribe_to_author
+  after_create :calculate_reputation, :subscribe_to_author!
 
   private
 
@@ -22,7 +22,7 @@ class Question < ApplicationRecord
     ReputationJob.perform_later(self)
   end
 
-  def subscribe_to_author
-    subscriptions.create(user: user)
+  def subscribe_to_author!
+    subscriptions.create!(user: user)
   end
 end

@@ -19,11 +19,27 @@ RSpec.describe SubscriptionsController, type: :controller do
         post :create, params: { question_id: question, format: :js }
         expect(assigns(:subscription).user).to eq user
       end
+
+      it 'renders create view' do
+        post :create, params: { question_id: question, format: :js }
+        expect(response).to render_template :create
+      end
+
+      it 'returns 200 for authenticated user' do
+        post :create, params: { question_id: question, format: :js }
+        expect(response).to be_successful
+      end
     end
 
     context 'non-authenticated user' do
       it 'does not save the subscription' do
         expect { post :create, params: { question_id: question, format: :js } }.to_not change(question.subscriptions, :count)
+      end
+
+      it 'returns 401 for not authenticated user' do
+        post :create, params: { question_id: question, format: :js }
+
+        expect(response.status).to eq 401
       end
     end
   end
@@ -34,6 +50,16 @@ RSpec.describe SubscriptionsController, type: :controller do
 
       it 'deletes question subscription from database' do
         expect { delete :destroy, params: { id: subscription, format: :js } }.to change(another_question.subscriptions, :count).by(-1)
+      end
+
+      it 'renders destroy view' do
+        delete :destroy, params: { id: subscription, format: :js }
+        expect(response).to render_template :destroy
+      end
+
+      it 'returns 200 for authenticated user' do
+        delete :destroy, params: { id: subscription, format: :js }
+        expect(response).to be_successful
       end
     end
 
@@ -48,6 +74,12 @@ RSpec.describe SubscriptionsController, type: :controller do
     context 'non-authenticated user' do
       it 'does not delete the subscription' do
         expect { delete :destroy, params: { id: subscription, format: :js } }.to_not change(question.subscriptions, :count)
+      end
+
+      it 'returns 401 for not authenticated user' do
+        delete :destroy, params: { id: subscription, format: :js }
+
+        expect(response.status).to eq 401
       end
     end
   end
