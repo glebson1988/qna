@@ -1,13 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:another_user) { create(:user) }
-  let(:question) { create(:question, user: user) }
-  let(:another_question) { create(:question, user: another_user) }
-  let!(:subscription) { create(:subscription, question: another_question, user: another_user) }
-
   describe 'POST #create' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+
     context 'authenticated user' do
       before { login(user) }
 
@@ -46,10 +43,14 @@ RSpec.describe SubscriptionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'authenticated user' do
-      before { login(another_user) }
+      let(:user) { create(:user) }
+      let(:question) { create(:question) }
+      let!(:subscription) { create(:subscription, question: question, user: user) }
+
+      before { login(user) }
 
       it 'deletes question subscription from database' do
-        expect { delete :destroy, params: { id: subscription, format: :js } }.to change(another_question.subscriptions, :count).by(-1)
+        expect { delete :destroy, params: { id: subscription, format: :js } }.to change(question.subscriptions, :count).by(-1)
       end
 
       it 'renders destroy view' do
@@ -64,7 +65,12 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
 
     context 'another authenticated user' do
-      before { login(user) }
+      let(:user) { create(:user) }
+      let(:another_user) { create(:user) }
+      let(:question) { create(:question) }
+      let!(:subscription) { create(:subscription, question: question, user: user) }
+
+      before { login(another_user) }
 
       it "tries to delete another's user subscription" do
         expect { delete :destroy, params: { id: subscription, format: :js } }.to raise_exception ActiveRecord::RecordNotFound
@@ -72,6 +78,10 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
 
     context 'non-authenticated user' do
+      let(:user) { create(:user) }
+      let(:question) { create(:question) }
+      let!(:subscription) { create(:subscription, question: question, user: user) }
+
       it 'does not delete the subscription' do
         expect { delete :destroy, params: { id: subscription, format: :js } }.to_not change(question.subscriptions, :count)
       end

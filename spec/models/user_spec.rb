@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   describe '#subscribed_of?' do
     let(:user_not_sub) { create(:user) }
     let(:question) { create(:question, user: user) }
-    let!(:subscription) { create(:subscription, question: question, user: user) }
+    let(:subscription) { create(:subscription, question: question, user: user) }
 
     it 'return true if user subscribed' do
       expect(user).to be_subscribed_of(question)
