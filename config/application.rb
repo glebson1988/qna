@@ -17,6 +17,7 @@ module Qna
     # the framework and any gems in your application.
     # settings for controller generator
     config.autoload_paths += [config.root.join('app')]
+    config.active_job.queue_adapter = :sidekiq
 
     config.generators do |g|
       g.test_framework :rspec,

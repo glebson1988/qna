@@ -1,0 +1,4 @@
+h1 New questions of the last day
+ul
+  - @questions.each do |question|
+    li= link_to question.title, url_for(question)
