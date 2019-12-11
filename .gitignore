@@ -29,4 +29,5 @@
 .idea
 .DS_store
 .env
-
+/config/*.sphinx.conf
+/db/sphinx
