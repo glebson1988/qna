@@ -5,6 +5,8 @@ class Services::Search
   def self.call(query)
     return unless SCOPES.include?(query[:scope])
     
-    query[:scope].classify.constantize.search(ThinkingSphinx::Query.escape(query[:query]))
+    escaped_query = ThinkingSphinx::Query.escape(query[:query])
+    klass = query[:scope].classify.constantize
+    klass.search(escaped_query)
   end
 end

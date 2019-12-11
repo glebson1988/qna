@@ -7,4 +7,8 @@ RSpec.describe Services::Search do
       Services::Search.call(query: 'test', scope: scope)
     end
   end
+
+  it 'not exist scope' do
+    expect(Services::Search.call(query: 'test', scope: 'NotExist')).to be_nil
+  end
 end

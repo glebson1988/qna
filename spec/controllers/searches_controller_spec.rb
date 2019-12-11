@@ -32,9 +32,9 @@ RSpec.describe SearchesController, type: :controller do
         get :index, params: { query: questions.sample.title, scope: 'stub' }
       end
 
-      it 'return status 400' do
-        expect(response.status).to eq 400
-      end
+      it "renders index view" do
+          expect(response).to render_template :index
+        end
     end
   end
 end

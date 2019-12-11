@@ -3,9 +3,11 @@ class SearchesController < ApplicationController
   skip_authorization_check
 
   def index
-    @query = query_params
-    @results = Services::Search.call(@query)
-    head :bad_request unless @results
+    if params[:query].present?
+      @results = Services::Search.call(query_params)
+    else
+      render :index
+    end
   end
 
   private
