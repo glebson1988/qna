@@ -4,7 +4,11 @@
   = f.text_area :query
   br
   = f.label :scope
-  = f.select :scope, Services::Search::SCOPES
+  = f.select :scope, options_for_select([%w(All thinking_sphinx),
+                                         %w(Question question),
+                                         %w(Answer answer),
+                                         %w(Comment comment),
+                                         %w(User user)])
   br
   = f.submit 'Search'
   hr

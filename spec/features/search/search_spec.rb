@@ -22,7 +22,7 @@ feature 'Search', %q{
     scenario 'question' do
       ThinkingSphinx::Test.run do
         fill_in 'Query', with: question.title
-        select 'question', from: 'scope'
+        select 'Question', from: 'scope'
         click_on 'Search'
 
         expect(page).to have_content question.title
@@ -48,7 +48,7 @@ feature 'Search', %q{
     scenario 'answer' do
       ThinkingSphinx::Test.run do
         fill_in 'Query', with: answer.body
-        select 'answer', from: 'scope'
+        select 'Answer', from: 'scope'
         click_on 'Search'
 
         expect(page).to have_content answer.body
@@ -74,7 +74,7 @@ feature 'Search', %q{
     scenario 'comment' do
       ThinkingSphinx::Test.run do
         fill_in 'Query', with: comment.body
-        select 'comment', from: 'scope'
+        select 'Comment', from: 'scope'
         click_on 'Search'
 
         expect(page).to have_content comment.body
@@ -100,7 +100,7 @@ feature 'Search', %q{
     scenario 'user' do
       ThinkingSphinx::Test.run do
         fill_in 'Query', with: user.email
-        select 'user', from: 'scope'
+        select 'User', from: 'scope'
         click_on 'Search'
 
         expect(page).to have_content user.email
@@ -126,7 +126,7 @@ feature 'Search', %q{
     scenario 'all indicies' do
       ThinkingSphinx::Test.run do
         fill_in 'Query', with: user.email
-        select 'thinking_sphinx', from: 'scope'
+        select 'All', from: 'scope'
         click_on 'Search'
 
         expect(page).to have_content user.email
