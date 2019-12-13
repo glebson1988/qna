@@ -28,7 +28,8 @@ html
       .row
         .col-lg-9
           = render 'shared/flash'
-          = render 'searches/search_form'
+          - if user_signed_in?
+            = render 'searches/search_form'
           = yield
 
 
