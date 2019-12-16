@@ -6,6 +6,9 @@
 server "178.62.56.233", user: "deployer", roles: %w{app db web}, primary: true
 set :rails_env, :production
 
+# sidekiq
+set :sidekiq_config, -> { File.join(shared_path, ‘config’, ‘sidekiq.yml’) }
+
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
