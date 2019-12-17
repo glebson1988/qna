@@ -18,7 +18,7 @@ set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
 # Global options
 # --------------
  set :ssh_options, {
-  keys: %w(/home/fun/.ssh/id_rsa),
+  keys: %w(/home/fun/.ssh/id_rsa /Users/glebgrisakov/.ssh/id_rsa),
   forward_agent: true,
   auth_methods: %w(publickey password),
   port: 2222
