@@ -16,8 +16,12 @@ feature 'Search', %q{
   given!(:comment) { create(:comment, commentable: question, user: user) }
   given(:comments) { create_list(:comment, 2, commentable: question, user: user) }
 
-  describe 'Search by', js:true, sphinx: true do
-    before { visit root_path }
+  describe 'Search by', :vcr, js:true, sphinx: true do
+
+    before do
+      sign_in user
+      visit root_path
+    end
 
     scenario 'question' do
       ThinkingSphinx::Test.run do
