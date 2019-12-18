@@ -1,9 +1,8 @@
-- cache collection_cache_key_for :question do
-  .questions
-    h2 Questions
-    hr
-    .question-errors
-    = render @questions
+.questions
+  h2 Questions
+  hr
+  .question-errors
+  = render partial: :question, collection: @questions, cached: true
 
-  - if can?(:create, Question)
-    p= link_to 'Ask question', new_question_path
+- if can?(:create, Question)
+  p= link_to 'Ask question', new_question_path

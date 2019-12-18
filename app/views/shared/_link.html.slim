@@ -1,6 +1,6 @@
 - resource.links.each do |link|
   - if link.persisted?
-    - cache link do
+    - cache_unless current_user&.admin?, link
       div id="link_#{link.id}"
         - if link.gist?
           li= link.gist_body

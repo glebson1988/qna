@@ -1,4 +1,4 @@
-- cache @question do
+- cache_unless current_user&.admin?, @question
 
   h1= @question.title
   p= @question.body

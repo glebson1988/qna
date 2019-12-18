@@ -1,5 +1,5 @@
 - if answer.persisted?
-  - cache answer do
+  - cache_unless current_user&.admin?, answer
     div id = "answer_#{answer.id}"
       -if answer.best?
         | Best answer:
