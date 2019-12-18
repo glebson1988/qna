@@ -1,51 +1,52 @@
 - if answer.persisted?
-  div id = "answer_#{answer.id}"
-    -if answer.best?
-      | Best answer:
-    p= answer.body
+  - cache answer do
+    div id = "answer_#{answer.id}"
+      -if answer.best?
+        | Best answer:
+      p= answer.body
 
-    = render 'shared/vote', resource: answer
+      = render 'shared/vote', resource: answer
 
-    .links
-      p Links:
-      ul
-        = render 'shared/link', resource: answer
-
-    = render 'shared/attachments', resource: answer
-
-    - if show_best?(answer)
-      p= link_to 'Set best', set_best_answer_path(answer),
-                remote: true,
-                method: :patch
-
-    - if can?(:update, answer)
-      p= link_to 'Edit', '#', class: 'edit-answer-link', data: {answer_id: answer.id}
-
-    - if can?(:destroy, answer)
-      p= button_to 'Delete',
-              answer_path(answer),
-              remote: true,
-              method: :delete
-
-    .comment-block
-      p Comments:
-      .comments
-        = render answer.comments
-      -if can?(:create, Comment)
-        = render 'comments/form', resource: answer
-
-      = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
-        = f.label :body, 'Your answer'
-        = f.text_area :body
-        br
-        = f.label :files
-        = f.file_field :files, multiple: true, direct_upload: true
-        br
+      .links
         p Links:
-        #links
-          = f.fields_for :links do |l|
-          .add_link
-            = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'
-        = f.submit 'Save answer'
+        ul
+          = render 'shared/link', resource: answer
 
-    hr
+      = render 'shared/attachments', resource: answer
+
+      - if show_best?(answer)
+        p= link_to 'Set best', set_best_answer_path(answer),
+                  remote: true,
+                  method: :patch
+
+      - if can?(:update, answer)
+        p= link_to 'Edit', '#', class: 'edit-answer-link', data: {answer_id: answer.id}
+
+      - if can?(:destroy, answer)
+        p= button_to 'Delete',
+                answer_path(answer),
+                remote: true,
+                method: :delete
+
+      .comment-block
+        p Comments:
+        .comments
+          = render answer.comments
+        -if can?(:create, Comment)
+          = render 'comments/form', resource: answer
+
+        = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"} do |f|
+          = f.label :body, 'Your answer'
+          = f.text_area :body
+          br
+          = f.label :files
+          = f.file_field :files, multiple: true, direct_upload: true
+          br
+          p Links:
+          #links
+            = f.fields_for :links do |l|
+            .add_link
+              = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'
+          = f.submit 'Save answer'
+
+      hr

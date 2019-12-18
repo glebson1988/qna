@@ -1,35 +1,37 @@
-h1= @question.title
-p= @question.body
+- cache @question do
 
-.subscription
-  - if can?(:create, Subscription)
-    = render 'subscriptions/subscription', resource: @question
+  h1= @question.title
+  p= @question.body
 
-= render 'shared/attachments', resource: @question
+  .subscription
+    - if can?(:create, Subscription)
+      = render 'subscriptions/subscription', resource: @question
 
-.links
-  p Links:
-  ul
-    = render 'shared/link', resource: @question
+  = render 'shared/attachments', resource: @question
 
-- if can?(:destroy, @question)
-  p= link_to 'Delete question',
-          question_path(@question),
-          method: :delete,
-          data: {confirm: 'Are you sure?'}
+  .links
+    p Links:
+    ul
+      = render 'shared/link', resource: @question
 
-div id ="question_#{@question.id}"
-  .comment-block
-    p Comments:
-    .comments
-      = render @question.comments
-    -if can?(:create, Comment)
-      = render 'comments/form', resource: @question
+  - if can?(:destroy, @question)
+    p= link_to 'Delete question',
+            question_path(@question),
+            method: :delete,
+            data: {confirm: 'Are you sure?'}
 
-hr
-.answers
-  h2 Answers
-  = render @question.answers
+  div id ="question_#{@question.id}"
+    .comment-block
+      p Comments:
+      .comments
+        = render @question.comments
+      -if can?(:create, Comment)
+        = render 'comments/form', resource: @question
 
-- if can?(:create, Answer)
-  = render 'answers/form'
+  hr
+  .answers
+    h2 Answers
+    = render @question.answers
+
+  - if can?(:create, Answer)
+    = render 'answers/form'

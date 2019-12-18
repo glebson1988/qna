@@ -5,7 +5,7 @@ RSpec.describe Answer, type: :model do
   it_behaves_like 'votable'
   it_behaves_like 'commentable'
 
-  it { should belong_to :question }
+  it { should belong_to(:question).touch(true) }
 
   it { should validate_presence_of(:body) }
 

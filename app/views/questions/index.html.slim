@@ -1,8 +1,9 @@
-.questions
-  h2 Questions
-  hr
-  .question-errors
-  = render @questions
+- cache collection_cache_key_for :question do
+  .questions
+    h2 Questions
+    hr
+    .question-errors
+    = render @questions
 
-- if can?(:create, Question)
-  p= link_to 'Ask question', new_question_path
+  - if can?(:create, Question)
+    p= link_to 'Ask question', new_question_path
