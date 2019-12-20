@@ -1,37 +1,36 @@
-- cache_unless current_user&.admin?, @question
-
+- cache @question
   h1= @question.title
-  p= @question.body
+  h5= @question.body
 
-  .subscription
-    - if can?(:create, Subscription)
-      = render 'subscriptions/subscription', resource: @question
+.subscription
+  - if can?(:create, Subscription)
+    = render 'subscriptions/subscription', resource: @question
 
-  = render 'shared/attachments', resource: @question
+= render 'shared/attachments', resource: @question
 
-  .links
-    p Links:
-    ul
-      = render 'shared/link', resource: @question
+.links
+  p Links:
+  ul
+    = render 'shared/link', resource: @question
 
-  - if can?(:destroy, @question)
-    p= link_to 'Delete question',
-            question_path(@question),
-            method: :delete,
-            data: {confirm: 'Are you sure?'}
+- if can?(:destroy, @question)
+  p= link_to 'Delete question',
+          question_path(@question),
+          method: :delete,
+          data: {confirm: 'Are you sure?'}
 
-  div id ="question_#{@question.id}"
-    .comment-block
-      p Comments:
-      .comments
-        = render @question.comments
-      -if can?(:create, Comment)
-        = render 'comments/form', resource: @question
+div id ="question_#{@question.id}"
+  .comment-block
+    p Comments:
+    .comments
+      = render @question.comments
+    -if can?(:create, Comment)
+      = render 'comments/form', resource: @question
 
-  hr
-  .answers
-    h2 Answers
-    = render @question.answers
+hr
+.answers
+  h2 Answers
+  = render @question.answers
 
-  - if can?(:create, Answer)
-    = render 'answers/form'
+- if can?(:create, Answer)
+  = render 'answers/form'

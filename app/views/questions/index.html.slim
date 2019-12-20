@@ -2,7 +2,7 @@
   h2 Questions
   hr
   .question-errors
-  = render partial: :question, collection: @questions, cached: true
+  = render @questions
 
 - if can?(:create, Question)
   p= link_to 'Ask question', new_question_path
