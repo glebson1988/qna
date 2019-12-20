@@ -1,3 +1,4 @@
-div class = "comment_#{comment.id}"
-  p
-    = comment.body
+- cache comment
+  div class = "comment_#{comment.id}"
+    p
+      = comment.body

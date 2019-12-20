@@ -2,7 +2,8 @@
   div id = "answer_#{answer.id}"
     -if answer.best?
       | Best answer:
-    p= answer.body
+    - cache answer
+      p= answer.body
 
     = render 'shared/vote', resource: answer
 

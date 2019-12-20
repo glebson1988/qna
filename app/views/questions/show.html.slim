@@ -1,5 +1,6 @@
-h1= @question.title
-p= @question.body
+- cache @question
+  h1= @question.title
+  h5= @question.body
 
 .subscription
   - if can?(:create, Subscription)

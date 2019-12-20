@@ -1,6 +1,7 @@
 - if question.persisted?
   div id = "question_#{question.id}"
-    = link_to question.title, question_path(question)
+    - cache question
+      = link_to question.title, question_path(question)
 
     = render 'shared/vote', resource: question
 
