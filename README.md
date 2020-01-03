@@ -2,7 +2,7 @@
 
 Questions and Answers Thinknetica RoR advanced course application.
 
-This app based on main idea of stackowerflow: people can ask questions and create answers for them, created for lerning how some gems and technologies works.
+This app based on main idea of stackoverflow: people can ask questions and create answers for them, created for lerning how some gems and technologies works.
 
 Features:
 Actions mostly works without reload (ajax). New records appears on page without reload for all users.
