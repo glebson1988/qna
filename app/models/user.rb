@@ -12,7 +12,7 @@ class User < ApplicationRecord
          :rememberable,
          :validatable,
          :confirmable,
-         :omniauthable, omniauth_providers: %i[github vkontakte]
+         :omniauthable, omniauth_providers: %i[github]
 
   def author_of?(item)
     id == item.user_id
