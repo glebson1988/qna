@@ -195,7 +195,9 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
     middleware (0.1.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     mini_racer (0.3.1)
@@ -241,7 +243,7 @@ GEM
     public_suffix (4.0.6)
     puma (3.12.6)
     rack (2.2.3)
-    rack-protection (2.1.0)
+    rack-protection (2.2.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -327,7 +329,7 @@ GEM
       activemodel
       activesupport
       rspec (~> 3.0)
-    ruby2_keywords (0.0.2)
+    ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     rubyzip (2.3.0)
     sass (3.7.4)
@@ -362,10 +364,10 @@ GEM
       rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 4.2)
-    sinatra (2.1.0)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
-      rack-protection (= 2.1.0)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     skim (0.10.0)
       coffee-script
